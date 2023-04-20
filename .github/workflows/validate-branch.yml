@@ -1,0 +1,39 @@
+name: Check Pull Request Branch
+
+on:
+  push:
+    branches:
+      - master
+      - main
+      - dev
+  pull_request:
+    types:
+      - opened
+      - synchronize
+      - reopened
+
+jobs:
+  check_branch:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Check branch
+        run: |
+          PR_BASE_BRANCH="${{ github.base_ref }}"
+          PR_HEAD_BRANCH="${{ github.head_ref }}"
+          ALLOWED_BRANCH_PREFIX="feature/"
+
+          echo "github.base_ref ${{github.base_ref}}"
+          echo "github.head_ref ${{github.head_ref}}"
+
+
+          if [[ "$PR_HEAD_BRANCH" == $ALLOWED_BRANCH_PREFIX* ]]; then
+            echo "Pull request is from a branch with the correct prefix: $PR_HEAD_BRANCH"
+          else
+            echo "error: Pull request is from a branch with an incorrect prefix: $PR_HEAD_BRANCH" >&2
+            echo "Branches should have the following prefix: $ALLOWED_BRANCH_PREFIX" >&2
+            exit 1
+          fi
