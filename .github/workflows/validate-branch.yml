@@ -27,7 +27,7 @@ jobs:
 
           echo "github.base_ref ${{github.base_ref}}"
           echo "github.head_ref ${{github.head_ref}}"
-
+          echo " github.event.pull_request.base.ref  :  ${{ github.event.pull_request.base.ref }}"
 
           if [[ "$PR_HEAD_BRANCH" == $ALLOWED_BRANCH_PREFIX* ]]; then
             echo "Pull request is from a branch with the correct prefix: $PR_HEAD_BRANCH"
