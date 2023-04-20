@@ -3,8 +3,6 @@ name: Check Pull Request Branch
 on:
   push:
     branches:
-      - master
-      - main
       - dev
   pull_request:
     types:
