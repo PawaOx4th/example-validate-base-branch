@@ -22,10 +22,12 @@ jobs:
         run: |
           PR_BASE_BRANCH="${{ github.base_ref }}"
           PR_HEAD_BRANCH="${{ github.head_ref }}"
-          ALLOWED_BRANCH_PREFIX="feature/"
+
+          # ALLOWED_BRANCH_PREFIX=/"
 
           echo "github.base_ref ${{github.base_ref}}"
           echo "github.head_ref ${{github.head_ref}}"
+          echo " github.event.pull_request.base.ref  :  ${{ github.event.pull_request.base.ref }}"
 
 
           if [[ "$PR_HEAD_BRANCH" == $ALLOWED_BRANCH_PREFIX* ]]; then
