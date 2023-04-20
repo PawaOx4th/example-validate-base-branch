@@ -18,8 +18,14 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v2
+
+      - name: Dump GitHub context
         env:
           GITHUB_CONTEXT: ${{ toJson(github) }}
+        run: |
+          echo "$GITHUB_CONTEXT"
+          echo "$env"
+
       - name: Check branch
         run: |
           PR_BASE_BRANCH="${{ github.base_ref }}"
